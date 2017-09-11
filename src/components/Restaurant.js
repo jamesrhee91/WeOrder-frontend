@@ -61,7 +61,7 @@ class Restaurant extends React.Component {
       <Grid.Column>
 
 
-        {this.state.groupExists ? <Group deleteGroup={this.deleteGroup} index={this.props.index}/> : null}
+        {this.state.groupExists ? <Group deleteGroup={this.deleteGroup} restaurant={restaurant} index={this.props.index}/> : null}
 
       </Grid.Column>
       </Grid.Row>

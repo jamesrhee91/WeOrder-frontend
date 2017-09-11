@@ -40,22 +40,55 @@ class Group extends React.Component {
     })
   }
 
+  registerOrder = () => {
+    const users = this.state.members.map(member => {
+      return (
+        {
+          user: {
+            name: member
+          }
+        }
+      )
+    })
+
+
+    const restaurant = {
+      restaurant: {
+        name: this.props.restaurant.name,
+        yelpId: this.props.restaurant.id,
+        address: this.props.restaurant.location.address1
+      }
+    }
+
+    console.log(users)
+    console.log(this.props.restaurant)
+
+    const data = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': "application/json"
+     },
+      body: JSON.stringify({users: users, restaurant: restaurant})
+    }
+
+    fetch('http://localhost:3000/api/v1/user_restaurants/', data)
+      .then(res => res.json())
+      .then(user_info => {
+        console.log(user_info)
+      })
+    }
+
   render() {
     return (
       <div>
-        {/* <Form id="addHead" onSubmit={this.addHead}>
-          <Form.Field>
-            <label>Name</label>
-            <input value={this.state.head} onChange={this.handleHeadChange} placeholder='Name' />
-          </Form.Field>
-          <Button type='submit'>Submit</Button>
-        </Form> */}
         <MemberForm index={this.props.index} addMember={this.addMember} handleMemberChange={this.handleMemberChange} newMember={this.state.newMember} id='newMember' />
         Head: {this.state.members[0]}
         <br/>
         <MembersList members={this.state.members.slice(1)} />
         <br/>
-        <Button primary onClick={this.props.deleteGroup}> Delete Group </Button>
+        <Button primary onClick={this.registerOrder}> Register Order </Button>
+        <Button primary onClick={this.props.deleteGroup}> Cancel Group </Button>
       </div>
     )
   }
