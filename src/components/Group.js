@@ -44,9 +44,7 @@ class Group extends React.Component {
     const users = this.state.members.map(member => {
       return (
         {
-          user: {
-            name: member
-          }
+          name: member
         }
       )
     })
@@ -67,7 +65,7 @@ class Group extends React.Component {
         'Content-Type': 'application/json',
         'Accept': "application/json"
      },
-      body: JSON.stringify({order: {users: users, restaurant: restaurant}})
+      body: JSON.stringify({users: users, restaurant: restaurant})
     }
 
     fetch('http://localhost:3000/api/v1/user_restaurants/', data)
