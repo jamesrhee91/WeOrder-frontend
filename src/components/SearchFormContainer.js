@@ -8,25 +8,25 @@ export default class SearchFormContainer extends React.Component {
     restaurants: []
   }
 
-  componentDidMount() {
-    const data = {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': "application/json"
-     },
-      body: JSON.stringify({ term: "ice cream", location: "11106"})
-    }
-
-    fetch('http://localhost:3000/api/v1/restaurants/', data)
-      .then(res => res.json())
-      .then(restaurants => {
-        console.log(restaurants)
-        this.setState({
-          restaurants: restaurants.businesses
-        })
-      })
-  }
+  // componentDidMount() {
+  //   const data = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Accept': "application/json"
+  //    },
+  //     body: JSON.stringify({ term: "ice cream", location: "11106"})
+  //   }
+  //
+  //   fetch('http://localhost:3000/api/v1/restaurants/', data)
+  //     .then(res => res.json())
+  //     .then(restaurants => {
+  //       console.log(restaurants)
+  //       this.setState({
+  //         restaurants: restaurants.businesses
+  //       })
+  //     })
+  // }
 
 
 
