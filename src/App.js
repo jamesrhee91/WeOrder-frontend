@@ -64,10 +64,10 @@ class App extends Component {
 
   signupUser = (userParams) => {
     Auth.signup(userParams)
-      .then(user => {
-        localStorage.setItem('jwt', user.jwt)
+      .then(payload => {
+        localStorage.setItem('jwt', payload.jwt)
         this.setState({
-          currentUser: user,
+          currentUser: payload.user,
           isLoggedIn: true,
           signup: {
             name: "",
@@ -80,15 +80,21 @@ class App extends Component {
 
   logoutUser = () => {
     Auth.logout()
+    this.setState({
+      currentUser: {},
+      isLoggedIn: false
+    })
     console.log('logged out')
   }
 
   loginUser = (userParams) => {
     Auth.login(userParams)
-      .then(user => {
-        localStorage.setItem('jwt', user.jwt)
+      .then(payload => {
+        localStorage.setItem('jwt', payload.jwt)
+        console.log("user is", payload.user)
+        // user is an object with the keys from the table in database
         this.setState({
-          currentUser: user,
+          currentUser: payload.user,
           isLoggedIn: true,
           login: {
             name: "",
@@ -142,7 +148,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Navbar />
+        <Navbar currentUserName={this.state.currentUser.first_name} isLoggedIn={this.state.isLoggedIn}/>
         <Signup name={this.state.signup.name} password={this.state.signup.password} handleNameChange={this.handleSignupNameChange} handlePasswordChange={this.handleSignupPasswordChange} signupUser={this.signupUser}/>
         <Logout logoutUser={this.logoutUser} />
         <Login loginUser={this.loginUser} name={this.state.login.name} password={this.state.login.password} handleNameChange={this.handleLoginNameChange} handlePasswordChange={this.handleLoginPasswordChange} />
