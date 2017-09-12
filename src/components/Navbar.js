@@ -33,6 +33,9 @@ export default class Navbar extends React.Component {
                 <Dropdown.Item>List Item</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
+            <Menu.Item header>
+              Hi {this.props.isLoggedIn ? this.props.currentUserName : null}!
+            </Menu.Item>
           </Container>
           </Menu>
         </div>
