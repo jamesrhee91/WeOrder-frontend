@@ -3,7 +3,7 @@ import {Form, Button} from 'semantic-ui-react'
 
 const Login = ({loginUser, handleNameChange, handlePasswordChange, name, password}) => {
   return (
-    <Form onSubmit={() => loginUser({name: name, password: password})}>
+    <Form onSubmit={() => loginUser({name: name, password: password}).then(res => res ? this.props.history.push("/") : null)}>
       <Form.Field>
         <label>Name</label>
         <input value={name} onChange={handleNameChange} placeholder='Name' />

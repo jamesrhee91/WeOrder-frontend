@@ -7,6 +7,7 @@ import Auth from './adapters/auth'
 import Signup from './components/Signup'
 import Logout from './components/Logout'
 import Login from './components/Login'
+import { Route, Redirect, Switch } from 'react-router-dom'
 
 
 class App extends Component {
@@ -88,19 +89,25 @@ class App extends Component {
   }
 
   loginUser = (userParams) => {
-    Auth.login(userParams)
+    return Auth.login(userParams)
       .then(payload => {
-        localStorage.setItem('jwt', payload.jwt)
-        console.log("user is", payload.user)
-        // user is an object with the keys from the table in database
-        this.setState({
-          currentUser: payload.user,
-          isLoggedIn: true,
-          login: {
-            name: "",
-            password: ""
+        if (payload.error === "Not Authenticated") {
+          alert("Username or Password is incorrect")
+        } else {
+            localStorage.setItem('jwt', payload.jwt)
+            console.log("user is", payload.user)
+
+            // user is an object with the keys from the table in database
+            this.setState({
+              currentUser: payload.user,
+              isLoggedIn: true,
+              login: {
+                name: "",
+                password: ""
+              }
+            })
+            return true
           }
-        })
 
       })
   }
@@ -149,10 +156,20 @@ class App extends Component {
     return (
       <div className="App add-padding">
         <Navbar currentUserName={this.state.currentUser.first_name} isLoggedIn={this.state.isLoggedIn}/>
-        <Signup name={this.state.signup.name} password={this.state.signup.password} handleNameChange={this.handleSignupNameChange} handlePasswordChange={this.handleSignupPasswordChange} signupUser={this.signupUser}/>
+
+        <Route exact path="/" render={() => this.state.isLoggedIn ? <SearchFormContainer /> : <Login loginUser={this.loginUser} name={this.state.login.name} password={this.state.login.password} handleNameChange={this.handleLoginNameChange} handlePasswordChange={this.handleLoginPasswordChange} /> }/>
+
+        <Route exact path="/login" render={() => this.state.isLoggedIn ? <Redirect to="/" /> : <Redirect to="/login" /> }/>
+
+        <Route exact path="/login" render={() => <Login loginUser={this.loginUser} name={this.state.login.name} password={this.state.login.password} handleNameChange={this.handleLoginNameChange} handlePasswordChange={this.handleLoginPasswordChange} />} />
+
+        {/* <Signup name={this.state.signup.name} password={this.state.signup.password} handleNameChange={this.handleSignupNameChange} handlePasswordChange={this.handleSignupPasswordChange} signupUser={this.signupUser}/> */}
+
         <Logout logoutUser={this.logoutUser} />
-        <Login loginUser={this.loginUser} name={this.state.login.name} password={this.state.login.password} handleNameChange={this.handleLoginNameChange} handlePasswordChange={this.handleLoginPasswordChange} />
-        <SearchFormContainer />
+
+        {/* <Login loginUser={this.loginUser} name={this.state.login.name} password={this.state.login.password} handleNameChange={this.handleLoginNameChange} handlePasswordChange={this.handleLoginPasswordChange} /> */}
+
+        {/* <SearchFormContainer /> */}
       </div>
     );
   }
