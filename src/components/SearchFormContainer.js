@@ -15,7 +15,7 @@ export default class SearchFormContainer extends React.Component {
         'Content-Type': 'application/json',
         'Accept': "application/json"
      },
-      body: JSON.stringify({ term: "ice cream", location: "Lower Manhattan"})
+      body: JSON.stringify({ term: "ice cream", location: "11106"})
     }
 
     fetch('http://localhost:3000/api/v1/restaurants/', data)
@@ -52,9 +52,13 @@ export default class SearchFormContainer extends React.Component {
 
   render() {
     return (
-      <div className="container">
-        <SearchForm searchQuery={this.searchQuery} />
-        <RestaurantList restaurants={this.state.restaurants} />
+      <div>
+        <div className="ui container">
+          <SearchForm searchQuery={this.searchQuery} />
+        </div>
+        <div>
+          <RestaurantList restaurants={this.state.restaurants} />
+        </div>
       </div>
     )
   }
