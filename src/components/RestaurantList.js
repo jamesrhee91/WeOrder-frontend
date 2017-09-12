@@ -7,7 +7,7 @@ class RestaurantList extends React.Component {
     const restaurants = this.props.restaurants.map((restaurant, index) => {
       return <Restaurant key={index} restaurant={restaurant} index={index} />
     })
-    return <div className="ui container"> {restaurants} </div>
+    return <div className="ui container add-margin"> {restaurants} </div>
   }
 }
 

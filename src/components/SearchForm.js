@@ -30,13 +30,13 @@ export default class SearchForm extends React.Component {
     return (
       <div>
         <form className="ui form" onSubmit={this.handleSubmit}>
-          <label htmlFor="search"> Search Term</label>
-          <input type="text" value={this.state.term} onChange={this.handleTermChange} id="search" />
+          <label htmlFor="search">Please enter search term:</label>
+          <input type="text" value={this.state.term} onChange={this.handleTermChange} id="search" placeholder="(e.g. food, restaurants)" className="ui search input" />
+          <label htmlFor="location">Please enter your location:</label>
+          <input type="text" value={this.state.location} onChange={this.handleLocationChange} id="location" placeholder="(e.g. address, neighborhood, city, state or zip)" className="input" />
           <br/>
-          <label htmlFor="location">Location: </label>
-          <input type="text" value={this.state.location} onChange={this.handleLocationChange} id="location" />
           <br/>
-          <input type="submit" value="submit" className="ui button"/>
+          <input type="submit" value="Submit" className="ui button"/>
         </form>
       </div>
     )
