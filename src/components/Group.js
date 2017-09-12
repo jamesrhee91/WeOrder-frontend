@@ -53,11 +53,9 @@ class Group extends React.Component {
 
 
     const restaurant = {
-      restaurant: {
-        name: this.props.restaurant.name,
-        yelpId: this.props.restaurant.id,
-        address: this.props.restaurant.location.address1
-      }
+      name: this.props.restaurant.name,
+      yelpId: this.props.restaurant.id,
+      address: this.props.restaurant.location.address1
     }
 
     console.log(users)
@@ -69,7 +67,7 @@ class Group extends React.Component {
         'Content-Type': 'application/json',
         'Accept': "application/json"
      },
-      body: JSON.stringify({users: users, restaurant: restaurant})
+      body: JSON.stringify({order: {users: users, restaurant: restaurant}})
     }
 
     fetch('http://localhost:3000/api/v1/user_restaurants/', data)
