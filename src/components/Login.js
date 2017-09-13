@@ -1,5 +1,6 @@
 import React from 'react'
 import {Form, Button} from 'semantic-ui-react'
+import {Link} from 'react-router-dom'
 
 const Login = ({loginUser, handleNameChange, handlePasswordChange, name, password}) => {
   return (
@@ -16,7 +17,7 @@ const Login = ({loginUser, handleNameChange, handlePasswordChange, name, passwor
         <Button type='submit'>Log In</Button>
       </Form>
       <br/>
-      <div>Don't have an account? <a href='/signup'>Signup</a></div>
+      <div>Don't have an account? <Link to='/signup'>Signup</Link></div>
     </div>
   )
 }

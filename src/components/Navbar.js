@@ -1,4 +1,5 @@
 import React from 'react'
+import {NavLink} from 'react-router-dom'
 import { Container, Divider, Dropdown, Grid, Header, Image, List, Menu, Segment } from 'semantic-ui-react'
 
 
@@ -9,12 +10,14 @@ export default class Navbar extends React.Component {
       <div>
         <Menu fixed='top' inverted>
           <Container>
-            <Menu.Item as='a' header>
               {/* <Image size='mini' src='/logo.png' style={{marginRight: '1.5em'}}/> */}
-              WeOrder
-            </Menu.Item>
-            <Menu.Item as='a'>Home</Menu.Item>
-
+            <Menu.Item header>WeOrder</Menu.Item>
+            <NavLink to='/'>
+              <Menu.Item className="hover">Home</Menu.Item>
+            </NavLink>
+            <NavLink to='/past-orders' onClick={this.props.getOrders}>
+              <Menu.Item className="hover" >Past Orders</Menu.Item>
+            </NavLink>
             <Dropdown item simple text='Dropdown'>
               <Dropdown.Menu>
                 <Dropdown.Item>List Item</Dropdown.Item>
@@ -32,7 +35,8 @@ export default class Navbar extends React.Component {
                 <Dropdown.Item>List Item</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-              {this.props.isLoggedIn ? <Menu.Item as='a' header onClick={this.props.logoutUser}>Log Out</Menu.Item> : null}
+              {this.props.isLoggedIn ? <Menu.Item>Hi {this.props.currentUserName}!</Menu.Item> : null}
+              {this.props.isLoggedIn ? <Menu.Item position='right' header onClick={this.props.logoutUser} className="hover">Log Out</Menu.Item> : null}
           </Container>
           </Menu>
         </div>
