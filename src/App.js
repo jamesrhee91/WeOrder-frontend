@@ -89,7 +89,7 @@ class App extends Component {
   }
 
   loginUser = (userParams) => {
-    return Auth.login(userParams)
+    Auth.login(userParams)
       .then(payload => {
         if (payload.error === "Not Authenticated") {
           alert("Username or Password is incorrect")
@@ -106,7 +106,6 @@ class App extends Component {
                 password: ""
               }
             })
-            return true
           }
 
       })
@@ -155,17 +154,19 @@ class App extends Component {
   render() {
     return (
       <div className="App add-padding">
-        <Navbar currentUserName={this.state.currentUser.first_name} isLoggedIn={this.state.isLoggedIn}/>
+        <Navbar currentUserName={this.state.currentUser.first_name} isLoggedIn={this.state.isLoggedIn} loginUser={this.loginUser} logoutUser={this.logoutUser}/>
 
-        <Route exact path="/" render={() => this.state.isLoggedIn ? <SearchFormContainer /> : <Login loginUser={this.loginUser} name={this.state.login.name} password={this.state.login.password} handleNameChange={this.handleLoginNameChange} handlePasswordChange={this.handleLoginPasswordChange} /> }/>
+        <Route exact path="/" render={() => this.state.isLoggedIn ? <SearchFormContainer /> : <Redirect to="/login" />}/>
 
-        <Route exact path="/login" render={() => this.state.isLoggedIn ? <Redirect to="/" /> : <Redirect to="/login" /> }/>
+        <Route exact path="/login" render={() => this.state.isLoggedIn ? <Redirect to="/" /> : <Login loginUser={this.loginUser} name={this.state.login.name} password={this.state.login.password} handleNameChange={this.handleLoginNameChange} handlePasswordChange={this.handleLoginPasswordChange} />} />
 
-        <Route exact path="/login" render={() => <Login loginUser={this.loginUser} name={this.state.login.name} password={this.state.login.password} handleNameChange={this.handleLoginNameChange} handlePasswordChange={this.handleLoginPasswordChange} />} />
+        <Route exact path="/signup" render={() => this.state.isLoggedIn ? <Redirect to="/" /> : <Signup name={this.state.signup.name} password={this.state.signup.password} handleNameChange={this.handleSignupNameChange} handlePasswordChange={this.handleSignupPasswordChange} signupUser={this.signupUser} />} />
+
+        {/* <Route exact path="/login" render={() => <Login loginUser={this.loginUser} name={this.state.login.name} password={this.state.login.password} handleNameChange={this.handleLoginNameChange} handlePasswordChange={this.handleLoginPasswordChange} />} /> */}
 
         {/* <Signup name={this.state.signup.name} password={this.state.signup.password} handleNameChange={this.handleSignupNameChange} handlePasswordChange={this.handleSignupPasswordChange} signupUser={this.signupUser}/> */}
 
-        <Logout logoutUser={this.logoutUser} />
+        {/* <Logout logoutUser={this.logoutUser} /> */}
 
         {/* <Login loginUser={this.loginUser} name={this.state.login.name} password={this.state.login.password} handleNameChange={this.handleLoginNameChange} handlePasswordChange={this.handleLoginPasswordChange} /> */}
 

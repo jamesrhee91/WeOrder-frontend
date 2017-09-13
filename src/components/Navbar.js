@@ -3,15 +3,14 @@ import { Container, Divider, Dropdown, Grid, Header, Image, List, Menu, Segment 
 
 
 export default class Navbar extends React.Component {
+
   render() {
     return (
       <div>
         <Menu fixed='top' inverted>
           <Container>
             <Menu.Item as='a' header>
-              <Image size='mini' src='/logo.png' style={{
-                marginRight: '1.5em'
-              }}/>
+              {/* <Image size='mini' src='/logo.png' style={{marginRight: '1.5em'}}/> */}
               WeOrder
             </Menu.Item>
             <Menu.Item as='a'>Home</Menu.Item>
@@ -33,9 +32,7 @@ export default class Navbar extends React.Component {
                 <Dropdown.Item>List Item</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
-            <Menu.Item header>
-              Hi {this.props.isLoggedIn ? this.props.currentUserName : null}!
-            </Menu.Item>
+              {this.props.isLoggedIn ? <Menu.Item as='a' header onClick={this.props.logoutUser}>Log Out</Menu.Item> : null}
           </Container>
           </Menu>
         </div>
