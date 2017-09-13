@@ -26,11 +26,15 @@ class Auth {
   }
 
 //works in tandem with componentWillMount in App component.
-  // static currentUser () {
-  //   return fetch(`${baseUrl}/current_user`, {
-  //     headers: headers()
-  //   }).then(res => res.json())
-  // }
+  static currentUser(token) {
+    return fetch('http://localhost:3000/api/v1/current-user', {
+      headers: {
+        "Content-Type":"application/json",
+        "Accept":"application/json",
+        "token": token
+      }
+    }).then(res => res.json())
+  }
 
 
   // static me() {

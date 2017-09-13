@@ -15,7 +15,7 @@ class App extends Component {
 
 
   state = {
-    currentUser: {},
+    currentUser: null,
     isLoggedIn: localStorage.getItem("jwt") ? true : false,
     jwt: localStorage.getItem("jwt"),
     pastOrders: [],
@@ -29,13 +29,20 @@ class App extends Component {
     }
   }
 
-  // componentDidMount() {
-  //   if (this.state.isLoggedIn) {
-  //     this.setState({
-  //       currentUser: payload.user
-  //     })
-  //   }
-  // }
+  // Do component did Mount : if user is not in state and token is in local storage,
+  // fetch user info from backend using token.
+
+
+  componentDidMount() {
+    if (!this.state.currentUser && this.state.isLoggedIn) {
+        Auth.currentUser(this.state.jwt)
+        .then((user) => {
+          this.setState({
+            currentUser: user
+          })
+        })
+    }
+  }
 
   handleLoginNameChange = (event) => {
     this.setState({
