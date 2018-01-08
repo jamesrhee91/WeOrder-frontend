@@ -18,7 +18,7 @@ class App extends Component {
     currentUser: null,
     isLoggedIn: localStorage.getItem("jwt") ? true : false,
     jwt: localStorage.getItem("jwt"),
-    pastOrders: [],
+    // pastOrders: [],
     login: {
       name: "",
       password: ""
@@ -200,9 +200,13 @@ class App extends Component {
 
     return (
       <div className="App add-padding">
-        <Navbar currentUserName={this.state.currentUser.first_name} isLoggedIn={this.state.isLoggedIn} loginUser={this.loginUser} logoutUser={this.logoutUser} getOrders={this.getOrders}/>
-
-        {/* <Route exact path="/" render={() => this.state.isLoggedIn ? <SearchFormContainer /> : <Redirect to="/login" />}/> */}
+        <Navbar
+          currentUserName={this.state.currentUser ? this.state.currentUser.first_name : null}
+          isLoggedIn={this.state.isLoggedIn}
+          loginUser={this.loginUser}
+          logoutUser={this.logoutUser}
+          getOrders={this.getOrders}
+        />
 
         <Route exact path="/" render={() => this.withLoggedIn(SearchFormContainer)} />
 
@@ -210,17 +214,11 @@ class App extends Component {
 
         <Route exact path="/signup" render={() => this.state.isLoggedIn ? <Redirect to="/" /> : <Signup name={this.state.signup.name} password={this.state.signup.password} handleNameChange={this.handleSignupNameChange} handlePasswordChange={this.handleSignupPasswordChange} signupUser={this.signupUser} />} />
 
-        <Route exact path="/past-orders" render={() => this.state.isLoggedIn ? <PastOrders restaurants={this.state.pastOrders} /> : <Redirect to="/" />} />
+        <Route exact path="/past-orders" render={() => this.state.isLoggedIn ? <PastOrders
+          currentUser={this.state.currentUser ? this.state.currentUser.first_name : null}
+        /> : <Redirect to="/" />} />
 
-        {/* <Route exact path="/login" render={() => <Login loginUser={this.loginUser} name={this.state.login.name} password={this.state.login.password} handleNameChange={this.handleLoginNameChange} handlePasswordChange={this.handleLoginPasswordChange} />} /> */}
 
-        {/* <Signup name={this.state.signup.name} password={this.state.signup.password} handleNameChange={this.handleSignupNameChange} handlePasswordChange={this.handleSignupPasswordChange} signupUser={this.signupUser}/> */}
-
-        {/* <Logout logoutUser={this.logoutUser} /> */}
-
-        {/* <Login loginUser={this.loginUser} name={this.state.login.name} password={this.state.login.password} handleNameChange={this.handleLoginNameChange} handlePasswordChange={this.handleLoginPasswordChange} /> */}
-
-        {/* <SearchFormContainer /> */}
       </div>
     );
   }

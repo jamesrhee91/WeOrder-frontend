@@ -15,10 +15,10 @@ export default class Navbar extends React.Component {
             <NavLink to='/'>
               <Menu.Item className="hover">Home</Menu.Item>
             </NavLink>
-            <NavLink to='/past-orders' onClick={this.props.getOrders}>
+            {/* <NavLink to='/past-orders' onClick={this.props.getOrders}>
               <Menu.Item className="hover" >Past Orders</Menu.Item>
-            </NavLink>
-            <Dropdown item simple text='Dropdown'>
+            </NavLink> */}
+            {/* <Dropdown item simple text='Dropdown'>
               <Dropdown.Menu>
                 <Dropdown.Item>List Item</Dropdown.Item>
                 <Dropdown.Item>List Item</Dropdown.Item>
@@ -34,7 +34,7 @@ export default class Navbar extends React.Component {
                 </Dropdown.Item>
                 <Dropdown.Item>List Item</Dropdown.Item>
               </Dropdown.Menu>
-            </Dropdown>
+            </Dropdown> */}
               {this.props.isLoggedIn ? <Menu.Item>Hi {this.props.currentUserName}!</Menu.Item> : null}
               {this.props.isLoggedIn ? <Menu.Item position='right' header onClick={this.props.logoutUser} className="hover">Log Out</Menu.Item> : null}
           </Container>
